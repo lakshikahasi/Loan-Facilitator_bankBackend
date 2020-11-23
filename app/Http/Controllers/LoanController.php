@@ -17,16 +17,8 @@ class LoanController extends Controller
         //
     }
 
-    public function getLoans($bank_id, Request $request){
-        $loans = loans::where('bank_id', $bank_id)->get();
-        return $loans;
-    }
-
-    public function getLoanDetails($loan_id, Request $request){
-        $loanDetails = loans::where('loan_id', $loan_id)->first();
-        return $loanDetails;
-    }
-
+    
+    //to add new loans
     public function createLoan(Request $request){
         $this->validate($request, [
             'loan_id' => 'required',
@@ -44,6 +36,8 @@ class LoanController extends Controller
         return response()->json($loan, 201);
     }
 
+
+    //to update existing loan details
     public function updateLoan($loan_id, Request $request){
         $loan = loans::where('loan_id', $loan_id)->first();
         //$loan->update($request->all());
@@ -52,6 +46,20 @@ class LoanController extends Controller
         //$loan->update($request->all());
         return $loan;
         //return response()->json($loan, 200);
+    }
+
+
+    //to obtain existing loan types
+    public function getLoans($bank_id, Request $request){
+        $loans = loans::where('bank_id', $bank_id)->get();
+        return $loans;
+    }
+
+
+
+    public function getLoanDetails($loan_id, Request $request){
+        $loanDetails = loans::where('loan_id', $loan_id)->first();
+        return $loanDetails;
     }
 
 }

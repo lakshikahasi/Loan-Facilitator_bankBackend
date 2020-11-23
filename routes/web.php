@@ -19,9 +19,13 @@ $router->get('/', function () use ($router) {
 
 $router->post('/login', 'LoginController@login');
 
-$router->get('/bankDetails/{bank_id}', 'BankController@bankDetails');
+$router->get('/bankDetails/{bank_id}', 'BankController@bankDetails');//to retrive bank details using bank id
 
-$router->get('/getLoans/{bank_id}','LoanController@getLoans');
-$router->get('/getLoanDetails/{loan_id}','LoanController@getLoanDetails');
 $router->post('/createLoan', 'LoanController@createLoan');
 $router->get('/updateLoan{loan_id}', 'LoanController@updateLoan');
+
+$router->get('/getLoans/{bank_id}','LoanController@getLoans');
+
+//$router->get('/getLoanDetails/{loan_id}','LoanController@getLoanDetails');
+$router->get('/getFarmerDetails/{id}','RequestController@getFarmerDetails');
+$router->get('/getApplicationDetails/{loan_id}', 'RequestController@getApplicationDetails');
