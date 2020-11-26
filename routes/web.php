@@ -34,4 +34,4 @@ $router->get('/getObtainedDetails/{loan_id}', 'ObtainedLoansController@getObtain
 $router->get('/getObtainedFarmerDetails/{id}', 'ObtainedLoansController@getObtainedFarmerDetails');
 
 
-$router->get('getFarmerLoans/{nic}/{bank_id}', 'PaymentController@getFarmerLoans');
+$router->get('getFarmerLoans/{nic}/{bank_id}', 'PaymentController@getFarmerLoans');//to obtain loan details using nic and bank id
