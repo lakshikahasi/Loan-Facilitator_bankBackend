@@ -51,4 +51,21 @@ class RequestController extends Controller
             return response($res);
         }
     }
+
+    public function getApplicantDetails($app_id){
+        $details = applications::join('farmersdetails', 'farmersdetails.nic', '=', 'applications.nic')
+        ->where('applications.id', '=', $app_id)
+        ->select('*')
+        ->get();
+
+        if($details){
+            $res['status']=true;
+            $res['message']=$details;
+            return response($res);
+        }else{
+            $res['status']=false;
+            $res['message']='NO details to show';
+            return response($res);
+        }
+    }
 }

@@ -22,10 +22,16 @@ $router->post('/login', 'LoginController@login');
 $router->get('/bankDetails/{bank_id}', 'BankController@bankDetails');//to retrive bank details using bank id
 
 $router->post('/createLoan', 'LoanController@createLoan');
-$router->get('/updateLoan{loan_id}', 'LoanController@updateLoan');
+$router->post('/updateLoan/{loan_id}', 'LoanController@updateLoan');
 
 $router->get('/getLoans/{bank_id}','LoanController@getLoans');
-
-//$router->get('/getLoanDetails/{loan_id}','LoanController@getLoanDetails');
+$router->get('/getLoanDetails/{loan_id}','LoanController@getLoanDetails');
 $router->get('/getFarmerDetails/{id}','RequestController@getFarmerDetails');
 $router->get('/getApplicationDetails/{loan_id}', 'RequestController@getApplicationDetails');
+$router->get('/getApplicantDetails/{app_id}', 'RequestController@getApplicantDetails');
+
+$router->get('/getObtainedDetails/{loan_id}', 'ObtainedLoansController@getObtainedDetails');
+$router->get('/getObtainedFarmerDetails/{id}', 'ObtainedLoansController@getObtainedFarmerDetails');
+
+
+$router->get('getFarmerLoans/{nic}/{bank_id}', 'PaymentController@getFarmerLoans');
