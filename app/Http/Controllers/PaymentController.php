@@ -17,14 +17,20 @@ class PaymentController extends Controller
     }
 
     public function getFarmerLoans($nic, $bank_id){
-        $loans = obtainloans::join('loans', 'obtainloans.loan_id', '=', 'loans.loan_id')
-        ->where('obtainloans.nic', '=', $nic)
+        $details = obtainloans::join('applications', 'applications.id', '=', 'obtainloans.application_id')->join('loans', 'loans.loan_id', '=', 'obtainloans.loan_id')
+        ->where('applications.nic', '=', $nic)
         ->where('loans.bank_id', '=', $bank_id)
+        //->select('*')
         ->get();
 
-        if($loans){
+        /* $loans = obtainloans::join('loans', 'obtainloans.loan_id', '=', 'loans.loan_id')
+        ->where('obtainloans.nic', '=', $nic)
+        ->where('loans.bank_id', '=', $bank_id)
+        ->get(); */
+
+        if($details){
             $res['status']=true;
-            $res['message']=$loans;
+            $res['message']=$details;
             return response($res);
         }else{
             $res['status']=false;

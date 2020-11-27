@@ -14,10 +14,11 @@ class CreatePaymentsTable extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->integer('application_id');
+            $table->integer('obtain_id');
             $table->integer('payment_id');
-            $table->string('installment_date');
-            $table->double('installment');
+            $table->string('loan_id');
+            $table->string('Installment_date');
+            $table->double('Installment');
             $table->double('paid_amount');
             $table->double('to_be_paid_amount');
             $table->string('to_be_paid_date');
@@ -35,3 +36,5 @@ class CreatePaymentsTable extends Migration
         Schema::dropIfExists('payments');
     }
 }
+
+

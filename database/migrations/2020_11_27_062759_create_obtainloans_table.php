@@ -14,13 +14,14 @@ class CreateObtainloansTable extends Migration
     public function up()
     {
         Schema::create('obtainloans', function (Blueprint $table) {
-            $table->id();
-            $table->integer('nic');
+            $table->integer('obtain_id');
             $table->integer('application_id');
             $table->string('loan_id');
             $table->string('Issued_date');
-            $table->string('expired_date');
             $table->double('amount');
+            $table->double('Interest_rate');
+            $table->string('expired_date');
+            $table->double('total_amount');
             $table->double('installment');
             $table->double('no_of_installment');
             $table->timestamps();
