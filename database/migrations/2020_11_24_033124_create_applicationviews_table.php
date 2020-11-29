@@ -14,7 +14,12 @@ class CreateApplicationviewsTable extends Migration
     public function up()
     {
         Schema::create('applicationviews', function (Blueprint $table) {
-            $table->id();
+        $table->increments('id');
+        $table->string('loan_id');
+        $table->string('nic');
+        $table->string('app_id');
+		$table->string('date');
+		
             $table->timestamps();
         });
     }

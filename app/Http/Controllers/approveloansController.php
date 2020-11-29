@@ -79,10 +79,6 @@ class approveloansController extends Controller
        ->select('applications.nic','application_id','approveloans.date','date_you_come','special_notices')
        ->get();
 
-
-
-       
-
           if ($user) {
            $res['status'] = true;
            $res['message'] = $user;
@@ -95,6 +91,22 @@ class approveloansController extends Controller
    
             return response($res);
            }
+    }
+
+    public function dltapprove($app_id){
+   
+        $user = approveloans::where('application_id', '=', $app_id)
+                ->delete();
+    
+        if($user){
+            $res['status']=true;
+            $res['message']=$user;
+            return response($res);
+        }else{
+            $res['status']=false;
+            $res['message']='Cannot find applicants!';
+            return response($res);
+        }
     }
 
 }

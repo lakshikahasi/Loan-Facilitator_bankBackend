@@ -35,3 +35,5 @@ $router->post('/approveloan', 'approveloansController@approveloan');
 $router->get('/dltreject/{app_id}', 'RequestController@dltreject');
 $router->get('/getapproveDetails/{loan_id}', 'approveloansController@getapproveDetails');
 $router->get('/getapproveDetailsbyappid/{application_id}', 'approveloansController@getapproveDetailsbyappid');
+$router->get('/dltapprove/{app_id}', 'approveloansController@dltapprove');
+$router->post('/obtainLoan', 'obtainController@obtainLoan');
