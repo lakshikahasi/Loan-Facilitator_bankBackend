@@ -22,4 +22,5 @@ class loans extends Model
      * @var array
      */
     protected $hidden = [];
+    //public $primaryKey = 'loan_id';
 }

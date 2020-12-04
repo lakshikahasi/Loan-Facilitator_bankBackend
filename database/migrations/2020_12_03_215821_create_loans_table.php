@@ -14,6 +14,7 @@ class CreateLoansTable extends Migration
     public function up()
     {
         Schema::create('loans', function (Blueprint $table) {
+            $table->id();
             $table->string('loan_id');
             $table->string('bank_id');
             $table->string('loan_name');
@@ -21,9 +22,9 @@ class CreateLoansTable extends Migration
             $table->string('specific_info');
             $table->string('eligible_borrowers');
             $table->string('eligible_crops');
-            $table->string('maximum_loanamount');
-            $table->string('Rateofinterest');
-            $table->string('Repaymentperiod');
+            $table->double('maximum_loanamount');
+            $table->double('Rateofinterest');
+            $table->integer('Repaymentperiod');
             $table->string('more_info');
             $table->binary('loan_logo');
             $table->timestamps();

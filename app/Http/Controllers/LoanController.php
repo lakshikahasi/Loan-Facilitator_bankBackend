@@ -40,6 +40,7 @@ class LoanController extends Controller
     
     public function updateLoan($loan_id, Request $request){
         $loanupd = loans::where('loan_id', $loan_id)->first();
+        //$loanupd = loans::findOrFail($loan_id);
         $loanupd->update($request->all());
 
         //$loan = loans::findOrFail($loan_id);
@@ -58,7 +59,7 @@ class LoanController extends Controller
     }
 
 
-
+    //to retrive all loan scheme details
     public function getLoanDetails($loan_id){
         $loanDetails = loans::where('loan_id', $loan_id)->first();
         return $loanDetails;

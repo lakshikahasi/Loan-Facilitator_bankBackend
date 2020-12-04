@@ -19,16 +19,21 @@ $router->get('/', function () use ($router) {
 
 $router->post('/login', 'LoginController@login');
 
+
 $router->get('/bankDetails/{bank_id}', 'BankController@bankDetails');//to retrive bank details using bank id
 
-$router->post('/createLoan', 'LoanController@createLoan');
-$router->post('/updateLoan/{loan_id}', 'LoanController@updateLoan');
 
-$router->get('/getLoans/{bank_id}','LoanController@getLoans');
-$router->get('/getLoanDetails/{loan_id}','LoanController@getLoanDetails');
-$router->get('/getFarmerDetails/{id}','RequestController@getFarmerDetails');
-$router->get('/getApplicationDetails/{loan_id}', 'RequestController@getApplicationDetails');
-$router->get('/getApplicantDetails/{app_id}', 'RequestController@getApplicantDetails');
+$router->post('/createLoan', 'LoanController@createLoan');//to create a new loan scheme from the bank
+
+$router->get('/getLoanDetails/{loan_id}','LoanController@getLoanDetails');//to retrive all details of relavant loan scheme
+$router->post('/updateLoan/{loan_id}', 'LoanController@updateLoan');//to update existing loan scheme details
+
+
+$router->get('/getLoans/{bank_id}','LoanController@getLoans');//retrive all loan schemes from the relavant bank
+$router->get('/getApplicationDetails/{loan_id}', 'RequestController@getApplicationDetails');//retrive name & date for view of applicant requests
+$router->get('/getFarmerDetails/{id}','RequestController@getFarmerDetails');//retrive farmer details for farmer personal information
+$router->get('/getApplicantDetails/{app_id}', 'RequestController@getApplicantDetails');//to retrive every information in a application
+
 
 $router->get('/getObtainedDetails/{loan_id}', 'ObtainedLoansController@getObtainedDetails');
 $router->get('/getObtainedFarmerDetails/{id}', 'ObtainedLoansController@getObtainedFarmerDetails');
