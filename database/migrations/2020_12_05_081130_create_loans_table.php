@@ -24,7 +24,7 @@ class CreateLoansTable extends Migration
             $table->string('eligible_crops');
             $table->double('maximum_loanamount');
             $table->double('Rateofinterest');
-            $table->integer('Repaymentperiod');
+            $table->double('Repaymentperiod');
             $table->string('more_info');
             $table->binary('loan_logo');
             $table->timestamps();

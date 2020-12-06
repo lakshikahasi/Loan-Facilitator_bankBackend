@@ -21,7 +21,7 @@ class LoanController extends Controller
     //to add new loans
     public function createLoan(Request $request){
         $this->validate($request, [
-            'loan_id' => 'required',
+            'loan_id' => 'required | unique:loans',
             'loan_name' => 'required',
             'genera_info' => 'required',
             'eligible_borrowers' => 'required',
@@ -39,14 +39,26 @@ class LoanController extends Controller
 
     
     public function updateLoan($loan_id, Request $request){
-        $loanupd = loans::where('loan_id', $loan_id)->first();
+        
         //$loanupd = loans::findOrFail($loan_id);
+
+
+        $loanupd = loans::where('loan_id', $loan_id)->first();
         $loanupd->update($request->all());
+        return response()->json($loanupd, 200);
+
+
+        /* $res = $request->all();
+        $result = loans::where('loan_id', '=', $loan_id)->first();
+        $result->update($res);
+        return $res; */
+
+
 
         //$loan = loans::findOrFail($loan_id);
         //$loan->update($request->all());
         //return $loan;
-        return response()->json($loanupd, 200);
+        
         /* $loanDetails = loans::where('loan_id', $loan_id)->first();
         return $loanDetails; */
     }
@@ -54,14 +66,23 @@ class LoanController extends Controller
 
     //to obtain existing loan types
     public function getLoans($bank_id, Request $request){
-        $loans = loans::where('bank_id', $bank_id)->get();
-        return $loans;
+        $loans = loans::where('bank_id', '=', $bank_id)->get();
+
+        if($loans){
+            $res['status']=true;
+            $res['message']=$loans;
+            return response($res);
+        }else{
+            $res['status']=false;
+            $res['message']='Cannot find applicants!';
+            return response($res);
+        }
     }
 
 
     //to retrive all loan scheme details
     public function getLoanDetails($loan_id){
-        $loanDetails = loans::where('loan_id', $loan_id)->first();
+        $loanDetails = loans::where('loan_id', '=', $loan_id)->first();
         return $loanDetails;
     }
 

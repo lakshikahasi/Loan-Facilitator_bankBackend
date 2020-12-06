@@ -27,6 +27,7 @@ $router->post('/createLoan', 'LoanController@createLoan');//to create a new loan
 
 $router->get('/getLoanDetails/{loan_id}','LoanController@getLoanDetails');//to retrive all details of relavant loan scheme
 $router->post('/updateLoan/{loan_id}', 'LoanController@updateLoan');//to update existing loan scheme details
+//$router->put('/updateLoan/{loan_id}', 'LoanController@updateLoan');//to update existing loan scheme details
 
 
 $router->get('/getLoans/{bank_id}','LoanController@getLoans');//retrive all loan schemes from the relavant bank
@@ -39,5 +40,5 @@ $router->get('/getObtainedDetails/{loan_id}', 'ObtainedLoansController@getObtain
 $router->get('/getObtainedFarmerDetails/{id}', 'ObtainedLoansController@getObtainedFarmerDetails');
 
 
-$router->get('getFarmerLoans/{nic}/{bank_id}', 'PaymentController@getFarmerLoans');//to obtain loan details using nic and bank id
-//$router->get('getFarmerLoans/{nic}', 'PaymentController@getFarmerLoans');//to obtain loan details using nic and bank id
+$router->get('getFarmerLoans2/{nic}', 'PaymentController@getFarmerLoans2');//to obtain loan details using nic and bank id
+$router->post('getFarmerLoans/{nic}', 'PaymentController@getFarmerLoans');//to obtain loan details using nic //####use this#####
