@@ -13,7 +13,7 @@ class obtainloans extends Model
      * @var array
      */
     protected $fillable = [
-        'obtain_id', 'application_id', 'loan_id', 'Issued_date', 'amount', 'Interest_rate', 'expired_date', 'total_amount', 'installment', 'no_of_installment'
+        'obtain_id', 'application_id', 'loan_id', 'Issued_date', 'borrowed_amount', 'Interest_rate', 'expired_date', 'total_amount', 'installment', 'no_of_installment'
     ];
 
     /**

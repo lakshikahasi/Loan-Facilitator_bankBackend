@@ -18,7 +18,7 @@ class CreateObtainloansTable extends Migration
             $table->integer('application_id');
             $table->string('loan_id');
             $table->string('Issued_date');
-            $table->double('amount');
+            $table->double('borrowed_amount');
             $table->double('Interest_rate');
             $table->string('expired_date');
             $table->double('total_amount');

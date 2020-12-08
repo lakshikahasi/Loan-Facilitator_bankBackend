@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\obtainloans;
 use App\applications;
+use App\Payments;
+//use App\banks;
+//use App\loans;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -75,10 +78,14 @@ class PaymentController extends Controller
   
   
           $nic = $request->input('nic');
+          $bank_id = $request->input('bank_id');
   
           try {
-            $details = obtainloans::join('applications', 'applications.id', '=', 'obtainloans.application_id')->join('loans', 'loans.loan_id', '=', 'obtainloans.loan_id')
+            $details = obtainloans::join('applications', 'applications.id', '=', 'obtainloans.application_id')->join('loans', 'loans.loan_id', '=', 'obtainloans.loan_id')//->join('banks','banks.bank_id', '=', 'loans.bank_id')
             ->where('applications.nic', '=', $nic)
+            //->where('applications.loan_id', '=', 'loans.loan_id')
+            //->where('loans.bank_id', '=', $bank_id)
+            //->select('obtainloans.amount', 'obtainloans.interest_rate', 'obtainloans.no_of_installment', 'obtainloans.Issued_date', 'obtainloans.installment', 'obtainloans.total_amount', 'applications.nic')
             ->get();
             //if ($details->applications.nic == $request->input('nic')) {
               if ($details) {
@@ -121,5 +128,21 @@ class PaymentController extends Controller
               $res['message'] = $ex->getMessage();
               return response($res, 500);
           }
+    }
+
+    public function getPayments($obtain_id){
+        $payments = payments::join('obtainloans', 'obtainloans.obtain_id', '=', 'payments.obtain_id')
+        ->where('payments.obtain_id', '=', $obtain_id)
+        ->get();
+
+        if($payments){
+            $res['status']=true;
+            $res['message']=$payments;
+            return response($res);
+        }else{
+            $res['status']=false;
+            $res['message']='No payments yet';
+            return response($res);
+        }
     }
 }
