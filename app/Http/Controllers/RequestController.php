@@ -19,9 +19,11 @@ class RequestController extends Controller
     }
 
     public function getFarmerDetails($id){
+
+        //const $farmNIC = 'farmersdetails.nic';
         $user=applications::join('farmersdetails', 'farmersdetails.nic', '=', 'applications.nic')
         ->where('applications.id', '=', $id)
-        ->select('choose', 'nameini','namefull','address','TpNo','dob','farmersdetails.nic','email')
+        ->select('choose', 'nameini','namefull','farmersdetails.address','TpNo','dob','farmersdetails.nic','email')
         ->get();
 
         if($user){
