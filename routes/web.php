@@ -36,6 +36,9 @@ $router->get('/getFarmerDetails/{id}','RequestController@getFarmerDetails');//re
 $router->get('/getApplicantDetails/{app_id}', 'RequestController@getApplicantDetails');//to retrive every information in a application
 
 
+$router->get('/getapproveDetailsbyappid/{application_id}', 'approveloansController@getapproveDetailsbyappid');
+
+
 $router->get('/getObtainedDetails/{loan_id}', 'ObtainedLoansController@getObtainedDetails');
 $router->get('/getObtainedFarmerDetails/{id}', 'ObtainedLoansController@getObtainedFarmerDetails');
 

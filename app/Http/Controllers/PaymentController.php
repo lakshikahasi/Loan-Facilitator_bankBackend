@@ -83,7 +83,7 @@ class PaymentController extends Controller
                           try {
                               
                                 $res['status'] = true;
-                                $res['message'] = 'Valued customer';
+                                //$res['message'] = 'Valued customer';
                                 $res['data'] =  $details;
                                 
                                 return response($res, 200);

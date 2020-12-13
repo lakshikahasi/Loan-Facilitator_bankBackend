@@ -21,6 +21,15 @@ class BankController extends Controller
     public function bankDetails($bank_id, Request $request){
 
         $bank = banks::where('bank_id', $bank_id)->first();
-        return $bank;
+        
+        if($bank){
+            $res['status']=true;
+            $res['message']='Your loan added';
+            return response($res);
+        }else{
+            $res['status']=false;
+            $res['message']='Error in submission';
+            return response($res);
+        }
     }
 }
