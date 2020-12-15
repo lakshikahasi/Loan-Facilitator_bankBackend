@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\applications;
 use App\farmersdetails;
+use App\reports;
 
 class RequestController extends Controller
 {
@@ -22,8 +23,9 @@ class RequestController extends Controller
 
         //const $farmNIC = 'farmersdetails.nic';
         $user=applications::join('farmersdetails', 'farmersdetails.nic', '=', 'applications.nic')
+        ->join('reports','reports.app_id','=','applications.id')
         ->where('applications.id', '=', $id)
-        ->select('choose', 'nameini','namefull','farmersdetails.address','TpNo','dob','farmersdetails.nic','email')
+        ->select('*')
         ->get();
 
         if($user){
@@ -39,8 +41,13 @@ class RequestController extends Controller
 
     public function getApplicationDetails($loan_id){
         $user = applications::join('farmersdetails', 'farmersdetails.nic', '=', 'applications.nic')
-        ->where('loan_id', '=', $loan_id)
-        ->select('nameini', 'date', 'applications.id')
+        ->join('reports','reports.app_id','=','applications.id')
+        ->where('applications.loan_id', '=', $loan_id)
+        ->where('reports.AO_status','=',"true")
+        ->where('reports.AI_status','=',"true")
+        ->where('reports.DO_status','=',"true")
+        ->where('reports.bank_status','=',"false")
+        ->select('*')
         ->get();
 
         if($user){
@@ -56,6 +63,7 @@ class RequestController extends Controller
 
     public function getApplicantDetails($app_id){
         $details = applications::join('farmersdetails', 'farmersdetails.nic', '=', 'applications.nic')
+        ->join('reports','reports.app_id','=','applications.id')
         ->where('applications.id', '=', $app_id)
         ->select('*')
         ->get();

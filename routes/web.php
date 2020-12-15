@@ -35,7 +35,7 @@ $router->get('/getApplicationDetails/{loan_id}', 'RequestController@getApplicati
 $router->get('/getFarmerDetails/{id}','RequestController@getFarmerDetails');//retrive farmer details for farmer personal information
 $router->get('/getApplicantDetails/{app_id}', 'RequestController@getApplicantDetails');//to retrive every information in a application
 
-
+$router->get('/getaccounts/{nic}', [ 'uses' => 'accountController@getaccounts']);
 $router->get('/getapproveDetailsbyappid/{application_id}', 'approveloansController@getapproveDetailsbyappid');
 
 
@@ -46,3 +46,6 @@ $router->get('/getObtainedFarmerDetails/{id}', 'ObtainedLoansController@getObtai
 $router->get('getFarmerLoans2/{nic}', 'PaymentController@getFarmerLoans2');//to obtain loan details using nic and bank id
 $router->post('getFarmerLoans/{nic}', 'PaymentController@getFarmerLoans');//to obtain loan details using nic //####use this#####
 $router->get('getPayments/{obtain_id}', 'PaymentController@getPayments');//to retrive farmer payment details to a table
+$router->get('/getreports/{app_id}/{type}', [ 'uses' => 'agrireportsController@getreports']);
+$router->get('/viewagrirepo/{app_id}', [ 'uses' => 'agrireportsController@viewagrirepo']);
+
