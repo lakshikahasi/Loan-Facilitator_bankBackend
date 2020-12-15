@@ -43,6 +43,9 @@ $router->get('/getObtainedDetails/{loan_id}', 'ObtainedLoansController@getObtain
 $router->get('/getObtainedFarmerDetails/{id}', 'ObtainedLoansController@getObtainedFarmerDetails');
 
 
-$router->get('getFarmerLoans2/{nic}', 'PaymentController@getFarmerLoans2');//to obtain loan details using nic and bank id
-$router->post('getFarmerLoans/{nic}', 'PaymentController@getFarmerLoans');//to obtain loan details using nic //####use this#####
+$router->get('getFarmerLoans2/{nic}/{bank_id}', 'PaymentController@getFarmerLoans2');//to obtain loan details using nic and bank id
+$router->post('getFarmerLoans/{nic}/{bank_id}', 'PaymentController@getFarmerLoans');//to obtain loan details using nic //####use this#####
+
 $router->get('getPayments/{obtain_id}', 'PaymentController@getPayments');//to retrive farmer payment details to a table
+
+$router->post('addPayment', 'PaymentController@addPayment');//to add a payment to payments table

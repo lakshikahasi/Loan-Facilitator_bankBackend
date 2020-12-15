@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+//Illuminate\Notifications\NotificationServiceProvider::class;
+
 use App\obtainloans;
 use App\applications;
 use App\Payments;
@@ -21,11 +23,16 @@ class PaymentController extends Controller
         //
     }
 
-    public function getFarmerLoans2($nic){
-        $details = obtainloans::join('applications', 'applications.id', '=', 'obtainloans.application_id')->join('loans', 'loans.loan_id', '=', 'obtainloans.loan_id')
+    public function getFarmerLoans2(Request $request, $nic, $bank_id){
+        /* $details = obtainloans::join('applications', 'applications.id', '=', 'obtainloans.application_id')->join('loans', 'loans.loan_id', '=', 'obtainloans.loan_id')
         ->where('applications.nic', '=', $nic)
-        //->where('loans.bank_id', '=', $bank_id)
-        //->select('*')
+        ->where('loans.bank_id', '=', $bank_id)
+        ->select('*')
+        ->get(); */
+
+        $details = obtainloans::join('applications', 'applications.id', '=', 'obtainloans.application_id')->join('loans', 'loans.loan_id', '=', 'obtainloans.loan_id')->join('banks','banks.bank_id', '=', 'loans.bank_id')
+        //->where('applications.nic', '=', $nic) 
+        ->where('banks.bank_id', '=', $bank_id)  
         ->get();
 
         /* $loans = obtainloans::join('loans', 'obtainloans.loan_id', '=', 'loans.loan_id')
@@ -60,7 +67,7 @@ class PaymentController extends Controller
         }
     } */
 
-    public function getFarmerLoans($nic, Request $request){
+    public function getFarmerLoans(Request $request, $nic, $bank_id){
         $rules = [
             'nic' => 'required',
          ];
@@ -69,13 +76,18 @@ class PaymentController extends Controller
              'required' => ':attribute all need'
          ];
 
-          $nic = $request->input('nic');
-          $bank_id = $request->input('bank_id');
+          //$nic = $request->input('nic');
+          //$bank_id = $request->input('bank_id');
   
           try {
-            $details = obtainloans::join('applications', 'applications.id', '=', 'obtainloans.application_id')//->join('loans', 'loans.loan_id', '=', 'obtainloans.loan_id')//->join('banks','banks.bank_id', '=', 'loans.bank_id')
+            /* $details = obtainloans::join('applications', 'applications.id', '=', 'obtainloans.application_id')//->join('loans', 'loans.loan_id', '=', 'obtainloans.loan_id')//->join('banks','banks.bank_id', '=', 'loans.bank_id')
             ->where('applications.nic', '=', $nic)
            
+            ->get(); */
+            $details = obtainloans::join('applications', 'applications.id', '=', 'obtainloans.application_id')->join('loans', 'loans.loan_id', '=', 'obtainloans.loan_id')->join('banks','banks.bank_id', '=', 'loans.bank_id')
+            ->where('applications.nic', '=', $nic) 
+            ->where('banks.bank_id', '=', $bank_id)
+            ->select('applications.nic', 'obtainloans.amount', 'obtainloans.interest_rate', 'obtainloans.installment', 'obtainloans.total_amount', 'obtainloans.Issued_date', 'obtainloans.no_of_installment', 'obtainloans.obtain_id')  
             ->get();
             
               if ($details) {
@@ -110,6 +122,7 @@ class PaymentController extends Controller
     public function getPayments($obtain_id){
         $payments = payments::join('obtainloans', 'obtainloans.obtain_id', '=', 'payments.obtain_id')
         ->where('payments.obtain_id', '=', $obtain_id)
+        ->select('obtainloans.application_id', 'obtainloans.interest_rate', 'obtainloans.no_of_installment', 'obtainloans.obtain_id', 'payments.paid_amount', 'payments.payment_id', 'payments.rating_no', 'payments.to_be_paid_amount', 'payments.to_be_paid_date', 'payments.Installment', 'payments.Installment_date')
         ->get();
 
         if($payments){
@@ -122,4 +135,12 @@ class PaymentController extends Controller
             return response($res);
         }
     }
+
+    public function addPayment(Request $request){
+
+        $payment = payments::create($request->all());
+
+        return response()->json($payment, 201);
+    }
+
 }

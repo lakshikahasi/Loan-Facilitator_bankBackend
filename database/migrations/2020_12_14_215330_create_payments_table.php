@@ -22,6 +22,7 @@ class CreatePaymentsTable extends Migration
             $table->double('paid_amount');
             $table->double('to_be_paid_amount');
             $table->string('to_be_paid_date');
+            $table->double('rating_no');
             $table->timestamps();
         });
     }
@@ -36,5 +37,3 @@ class CreatePaymentsTable extends Migration
         Schema::dropIfExists('payments');
     }
 }
-
-

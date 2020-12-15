@@ -13,7 +13,7 @@ class payments extends Model
      * @var array
      */
     protected $fillable = [
-        'obtain_id', 'payment_id', 'loan_id', 'Installment_date', 'Installment', 'paid_amount', 'to_be_paid_amount', 'to_be_paid_date'
+        'obtain_id', 'payment_id', 'loan_id', 'Installment_date', 'Installment', 'paid_amount', 'to_be_paid_amount', 'to_be_paid_date', 'rating_no'
     ];
 
     /**

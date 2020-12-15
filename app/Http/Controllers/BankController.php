@@ -21,7 +21,7 @@ class BankController extends Controller
     public function bankDetails($bank_id, Request $request){
 
         $bank = banks::where('bank_id', $bank_id)->first();
-        return $bank;
+        return $bank; 
         /* if($bank){
             $res['status']=true;
             $res['message']=$bank;
