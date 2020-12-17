@@ -43,9 +43,26 @@ $router->get('/getObtainedDetails/{loan_id}', 'ObtainedLoansController@getObtain
 $router->get('/getObtainedFarmerDetails/{id}', 'ObtainedLoansController@getObtainedFarmerDetails');
 
 
-$router->get('getFarmerLoans2/{nic}', 'PaymentController@getFarmerLoans2');//to obtain loan details using nic and bank id
-$router->post('getFarmerLoans/{nic}', 'PaymentController@getFarmerLoans');//to obtain loan details using nic //####use this#####
+$router->get('getFarmerLoans2/{nic}/{bank_id}', 'PaymentController@getFarmerLoans2');//to obtain loan details using nic and bank id
+$router->post('getFarmerLoans/{nic}/{bank_id}', 'PaymentController@getFarmerLoans');//to obtain loan details using nic
+
 $router->get('getPayments/{obtain_id}', 'PaymentController@getPayments');//to retrive farmer payment details to a table
+
 $router->get('/getreports/{app_id}/{type}', [ 'uses' => 'agrireportsController@getreports']);
 $router->get('/viewagrirepo/{app_id}', [ 'uses' => 'agrireportsController@viewagrirepo']);
+
+$router->get('/showARloans/{app_id}', 'RequestController@showARloans');
+$router->get('/showestimate/{app_id}', 'RequestController@showestimate');
+$router->post('addPayment', 'PaymentController@addPayment');//to add a payment to payments table
+$router->post('/approveloan', 'approveloansController@approveloan');
+$router->post('/updateagri/{app_id}','RequestController@updateagri');
+$router->post('/rejectloan', 'approveloansController@rejectloan');
+$router->get('/getapproveDetails/{loan_id}', 'approveloansController@getapproveDetails');
+$router->post('/updateapprove/{approve_id}','approveloansController@updateapprove');
+$router->get('/getrejectDetails/{loan_id}', 'approveloansController@getrejectDetails');
+$router->post('/obtainloan', 'obtainloanController@obtainloan');
+
+$router->get('/getrejectDetailsbyappid/{application_id}', 'approveloansController@getrejectDetailsbyappid');
+$router->get('/getobtainDetails/{loan_id}', 'obtainloanController@getobtainDetails');
+$router->get('/getobtaineddetailsbyappid/{application_id}', 'obtainloanController@getobtaineddetailsbyappid');
 

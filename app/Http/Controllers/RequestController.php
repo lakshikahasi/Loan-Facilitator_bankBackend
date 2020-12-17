@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\applications;
 use App\farmersdetails;
 use App\reports;
+use App\agriloans; 
+use App\estimates; 
+
 
 class RequestController extends Controller
 {
@@ -78,4 +81,84 @@ class RequestController extends Controller
             return response($res);
         }
     }
+
+            
+    public function showARloans($app_id){
+
+        $user = reports::join('applications', 'applications.id', '=', 'reports.app_id')
+        ->join('agriloans','agriloans.rep_id','=','reports.rep_id')
+        ->where('applications.id', '=', $app_id)
+        ->select('*')
+        ->get();
+  
+                  if ($user) {
+                      $res['status'] = true;
+                      $res['message'] = $user;
+              
+                      return response($res);
+                      }
+                      else{
+                         $res['status'] = false;
+                         $res['message'] = 'success';
+              
+                       return response($res);
+                      }
+  
+  
+      
+          }
+
+
+          public function showestimate($app_id){
+
+            $user = reports::join('applications', 'applications.id', '=', 'reports.app_id')
+            ->join('estimates','estimates.rep_id','=','reports.rep_id')
+            ->where('applications.id', '=', $app_id)
+            ->select('*')
+            ->get();
+      
+                      if ($user) {
+                          $res['status'] = true;
+                          $res['message'] = $user;
+                  
+                          return response($res);
+                          }
+                          else{
+                             $res['status'] = false;
+                             $res['message'] = 'success';
+                  
+                           return response($res);
+                          }
+      
+      
+          
+              }
+
+              
+              public function updateagri($app_id,Request $request)
+              {
+                try{
+                  $page = $request->all();
+                  $plan = reports::join('applications', 'applications.id', '=', 'reports.app_id')
+                  ->where('reports.app_id','=',$app_id)->first();
+                  $plan->update($page);
+                  
+                  
+                      $res['status'] = true;
+                      $res['message'] = 'success!';
+                      return response($res, 200);
+                
+                }
+                
+                catch (\Illuminate\Database\QueryException $ex) {
+                          $res['status'] = false;
+                          $res['message'] = $ex->getMessage();
+                          return response($res, 500);
+                      }
+  
+              }
+
+
+
+
 }

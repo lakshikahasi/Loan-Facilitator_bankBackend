@@ -13,7 +13,7 @@ class rejectloans extends Model
      * @var array
      */
     protected $fillable = [
-        'reject_id', 'application_id', 'loan_id', 'rejected_reason', 'rejected_date'
+        'reject_id', 'application_id', 'loan_id', 'rejected_reason', 'rejected_date','From_where'
     ];
 
     /**

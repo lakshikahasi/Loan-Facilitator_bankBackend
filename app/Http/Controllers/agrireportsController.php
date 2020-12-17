@@ -31,7 +31,7 @@ class agrireportsController extends Controller
                   ->where('reports.AO_status','=',"true")
                   ->where('reports.AI_status','=',"true")
                   ->where('reports.DO_status','=',"true")
-                  ->where('reports.bank_status','=',"false")
+               
                   ->select('*')
                   ->get();
   

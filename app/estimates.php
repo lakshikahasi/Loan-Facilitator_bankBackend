@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class payments extends Model
+class estimates extends Model
 {
 
     /**
@@ -13,8 +13,10 @@ class payments extends Model
      * @var array
      */
     protected $fillable = [
-        'obtain_id', 'payment_id', 'loan_id', 'Installment_date', 'Installment', 'paid_amount', 'to_be_paid_amount', 'to_be_paid_date', 'rating_no'
+        'rep_id','forclean','forland','forseed','forfertilizer','forchemicals','forharvest','forothers','totalamount'
     ];
+
+	
 
     /**
      * The attributes excluded from the model's JSON form.

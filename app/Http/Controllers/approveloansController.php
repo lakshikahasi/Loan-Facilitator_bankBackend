@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\approveloans;
 use App\farmersdetails;
 use App\applications;
+use App\rejectloans;
 
 class approveloansController extends Controller
 {
@@ -27,10 +28,11 @@ class approveloansController extends Controller
             
             $repo->application_id= $request->input('application_id');
             $repo->loan_id=$request->input('loan_id');
-            $repo->date=$request->input('date');
+            $repo->approved_date=$request->input('approved_date');
             $repo->date_you_come=$request->input('date_you_come');
             //$repo->branch=$request->input('branch');
             $repo->special_notices=$request->input('special_notices');
+            $repo->approve_status=$request->input('approve_status');
 
            
             
@@ -50,11 +52,13 @@ class approveloansController extends Controller
     }
 
     public function getapproveDetails($loan_id){
-        $user = approveloans::join('applications', 'applications.id', '=', 'approveloans.application_id')
+      
+       $user = applications::join('approveloans', 'approveloans.application_id', '=', 'applications.id')
+       ->join('farmersdetails', 'farmersdetails.nic', '=', 'applications.nic')
        ->where('approveloans.loan_id', '=',$loan_id)
-       ->select('applications.nic','application_id','approveloans.date','date_you_come','special_notices')
+       ->where('approveloans.approve_status', '=',"false")
+       ->select('*')
        ->get();
-
 
 
        
@@ -74,9 +78,10 @@ class approveloansController extends Controller
     }
 
     public function getapproveDetailsbyappid($application_id){
-        $user = approveloans::join('applications', 'applications.id', '=', 'approveloans.application_id')
-       ->where('application_id', '=',$application_id)
-       ->select('applications.nic','application_id','approveloans.date','date_you_come','special_notices')
+        $user = applications::join('approveloans', 'approveloans.application_id', '=', 'applications.id')
+        ->join('farmersdetails', 'farmersdetails.nic', '=', 'applications.nic')
+       ->where('approveloans.application_id', '=',$application_id)
+       ->select('*')
        ->get();
 
 
@@ -96,5 +101,102 @@ class approveloansController extends Controller
             return response($res);
            }
     }
+
+    public function rejectloan(Request $request){
+        try{	
+            $repo = new rejectloans;
+            
+            $repo->application_id= $request->input('application_id');
+            $repo->loan_id=$request->input('loan_id');
+            $repo->rejected_date=$request->input('rejected_date');
+            //$repo->date_you_come=$request->input('date_you_come');
+            //$repo->branch=$request->input('branch');
+            $repo->rejected_reason=$request->input('rejected_reason');
+            $repo->From_where=$request->input('From_where');
+           
+            
+            $repo->save();
+         
+                $res['status'] = true;
+                $res['message'] = 'Reject success!';
+            
+                return response($res, 200);
+                
+        }
+             catch (\Illuminate\Database\QueryException $ex) {
+                $res['status'] = false;
+                $res['message'] = $ex->getMessage();
+                return response($res, 500);
+            }
+    }
+
+
+    
+    public function updateapprove($approve_id,Request $request)
+    {
+      
+        $page = $request->all();
+        $plan = approveloans::where('approve_id','=',$approve_id)->first();
+        $plan->update($page);
+        
+        
+            $res['status'] = true;
+            $res['message'] = 'success!';
+            return response($res, 200);
+      
+    
+
+}
+
+public function getrejectDetails($loan_id){
+      
+    $user = applications::join('rejectloans', 'rejectloans.application_id', '=', 'applications.id')
+    ->join('farmersdetails', 'farmersdetails.nic', '=', 'applications.nic')
+    ->where('rejectloans.loan_id', '=',$loan_id)
+    ->select('*')
+    ->get();
+
+
+    
+
+       if ($user) {
+        $res['status'] = true;
+        $res['message'] = $user;
+
+        return response($res);
+        }
+        else{
+           $res['status'] = false;
+           $res['message'] = 'Cannot find applicant!';
+
+         return response($res);
+        }
+ }
+
+ public function getrejectDetailsbyappid($application_id){
+    $user = applications::join('rejectloans', 'rejectloans.application_id', '=', 'applications.id')
+    ->join('farmersdetails', 'farmersdetails.nic', '=', 'applications.nic')
+   ->where('rejectloans.application_id', '=',$application_id)
+   ->select('*')
+   ->get();
+
+
+
+   
+
+      if ($user) {
+       $res['status'] = true;
+       $res['message'] = $user;
+
+       return response($res);
+       }
+       else{
+          $res['status'] = false;
+          $res['message'] = 'Cannot find applicant!';
+
+        return response($res);
+       }
+}
+
 
 }
