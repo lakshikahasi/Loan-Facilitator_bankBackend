@@ -47,13 +47,15 @@ $router->get('getFarmerLoans2/{nic}/{bank_id}', 'PaymentController@getFarmerLoan
 $router->post('getFarmerLoans/{nic}/{bank_id}', 'PaymentController@getFarmerLoans');//to obtain loan details using nic
 
 $router->get('getPayments/{obtain_id}', 'PaymentController@getPayments');//to retrive farmer payment details to a table
+$router->get('getLastRecordPayments', 'PaymentController@getLastRecordPayments'); 
+$router->post('addPayment', 'PaymentController@addPayment');//to add a payment to payments table
+
 
 $router->get('/getreports/{app_id}/{type}', [ 'uses' => 'agrireportsController@getreports']);
 $router->get('/viewagrirepo/{app_id}', [ 'uses' => 'agrireportsController@viewagrirepo']);
 
 $router->get('/showARloans/{app_id}', 'RequestController@showARloans');
 $router->get('/showestimate/{app_id}', 'RequestController@showestimate');
-$router->post('addPayment', 'PaymentController@addPayment');//to add a payment to payments table
 $router->post('/approveloan', 'approveloansController@approveloan');
 $router->post('/updateagri/{app_id}','RequestController@updateagri');
 $router->post('/rejectloan', 'approveloansController@rejectloan');

@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\obtainloans;
 use App\applications;
 use App\Payments;
+use DB;
 //use App\banks;
 //use App\loans;
 use Illuminate\Http\Request;
@@ -136,11 +137,44 @@ class PaymentController extends Controller
         }
     }
 
+
+    public function getLastRecordPayments(){
+        $lastPayment = payments::orderBy('paid_amount', 'desc')->first();
+
+        if($lastPayment){
+            $res['status']=true;
+            $res['message']=$lastPayment;
+            return response($res);
+        }else{
+            $res['status']=false;
+            $res['message']='No payments yet';
+            return response($res);
+        }
+
+        //return DB::table('payments')->order_by('paid_amount','desc')->first();
+    }
+
+
     public function addPayment(Request $request){
+
+        $this->validate($request, [
+            'Installment_date'=>'required',
+            'Installment'=>'required'
+        ]);
 
         $payment = payments::create($request->all());
 
-        return response()->json($payment, 201);
+        if($payment){
+            $res['status']=true;
+            $res['message']='Successfully added the payment';
+            return response($res);
+            //return response()->json($payment, 201);
+        }else{
+            $res['status']=false;
+            return response($res);
+        }
+
+        
     }
 
 }
